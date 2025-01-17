@@ -13,12 +13,22 @@ function Header() {
     align-items: center; 
     justify-content: space-between;
   `
-
+  
   const Span = styled.span`
     color: #FFFFFF;
     font-size: 22px;
     font-weight: 600;
   `
+  const UserContainer = styled.div`
+   display: flex;
+   align-items: center;
+   gap: 8px; 
+  padding: 8px 14px 8px 14px;
+  border: 1px #222B44 solid;
+  border-radius: 6px;
+  opacity: 0px;
+
+ `
 
   const IMG = styled.img`
     width: 32px; 
@@ -27,7 +37,10 @@ function Header() {
   return (
     <Container1>
       <Span>Crypto Currency</Span>
-      <IMG src={photoProfil} alt="Profil" />
+      <UserContainer>
+        <IMG src={photoProfil} alt="Profil" />
+        <span style={{ color: '#FFFF', fontWeight: '500', fontSize: '14px', lineHeight: '18px' }}>Administrator</span>
+      </UserContainer>
     </Container1>
   )
 }

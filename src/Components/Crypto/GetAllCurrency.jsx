@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../index.css';
+import '../../index.css'; 
 import styled from 'styled-components';
+import search from '../../assets/search-circle.png'
+
 const Span = styled.span`
     font-size: 22px;
     font-weight: 600;
@@ -14,7 +16,7 @@ const LoadingMessage = styled.div`
     color: #fff;
     padding: 20px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5); // Add background to make the text stand out
+    background-color: rgba(0, 0, 0, 0.5); 
     border-radius: 8px;
 `;
 
@@ -29,7 +31,7 @@ function GetAllCurrency() {
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
-            setLoading(false); // Loading is false after data is fetched
+            setLoading(false);
         }
     };
 
@@ -48,13 +50,17 @@ function GetAllCurrency() {
     }
 
     return (
-        <div className='containerElements' style={{ borderTop: '1px solid #222B44', marginTop: '24px' }}>
+        <div className='containerElements'>
             <div className='spanMy'>
                 <Span className='mySpanFor'>My organization</Span>
             </div>
             <span className='spanUsers'>Users</span>
-            <div className='inputDiv' style={{height: '46px'}}>
-                <input className='inputSeach' type="text" placeholder='Search' />
+            <div className='inputDiv'>
+                <input onChange={(e) => console.log(e.target.value)}
+                    className='inputSeach'
+                    type="text"
+                    placeholder='Search'
+                />
             </div>
             <ul>
                 {currency.map((item) => (
