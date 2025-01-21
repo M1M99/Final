@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../index.css'; 
+import '../../index.css';
 import styled from 'styled-components';
-import search from '../../assets/search-circle.png'
+import Pagination from '../Pagination';
 
 const Span = styled.span`
     font-size: 22px;
@@ -23,11 +23,16 @@ const LoadingMessage = styled.div`
 function GetAllCurrency() {
     const [currency, setCurrency] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const itemsPerPage = 12;
 
     const GetResponse = async () => {
         try {
             const res = await axios.get('https://api.coinlore.net/api/tickers/?start=100&limit=100');
-            setCurrency(res.data.data);
+            setCurrency(res.data.data); 
+            setTotalPages(Math.ceil(res.data.data.length / itemsPerPage)); // Sayfa sayısını güncelle
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -45,6 +50,23 @@ function GetAllCurrency() {
         return () => clearInterval(interval);
     }, []);
 
+    const filteredCurrency = currency.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const paginatedCurrency = filteredCurrency.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [search]);
+
     if (loading) {
         return <LoadingMessage>Loading...</LoadingMessage>;
     }
@@ -56,21 +78,32 @@ function GetAllCurrency() {
             </div>
             <span className='spanUsers'>Users</span>
             <div className='inputDiv'>
-                <input onChange={(e) => console.log(e.target.value)}
+                <input 
+                    onChange={(ev) => setSearch(ev.target.value)}
                     className='inputSeach'
                     type="text"
                     placeholder='Search'
                 />
             </div>
-            <ul>
-                {currency.map((item) => (
-                    <li key={item.id}>
-                        <p>{item.name}</p>
-                        <p>${item.price_usd}</p>
-                    </li>
-                ))}
-            </ul>
+            <div>
+                <ul>
+                    {paginatedCurrency.map((item) => (
+                        <li key={item.id}>
+                            <p>{item.name}</p>
+                            <p>${item.price_usd}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+            </div>
         </div>
+        
     );
 }
 

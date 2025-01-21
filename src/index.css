@@ -99,6 +99,8 @@ ul {
   gap: 10px;
   color: #FFFFFF;
   padding-left: 0;
+  border-bottom: 1px solid #222B44;
+  margin-bottom: 24px;
 }
 
 a {

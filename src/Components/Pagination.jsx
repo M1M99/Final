@@ -1,22 +1,51 @@
-import React from 'react'
-import './pagination.css'
-function Pagination() {
+import React from 'react';
+import './pagination.css';
+
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const handleClick = (pageNumber) => {
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            onPageChange(pageNumber);
+        }
+    };
+
+    const generatePageNumbers = () => {
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <a
+                    key={i}
+                    href="#"
+                    className={i === currentPage ? 'active' : ''}
+                    onClick={() => handleClick(i)}
+                >
+                    {i}
+                </a>
+            );
+        }
+        return pages;
+    };
 
     return (
-
-        <div>
-            <div className="pagination">
-                <a href="#" className='arrow'>&#8592;</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#" className='arrow'>&#8594;</a>
-            </div>
+        <div className="pagination">
+            <a
+                href="#"
+                className="arrow"
+                onClick={() => handleClick(currentPage - 1)}
+                disabled={currentPage === 1}
+            >
+                &#8592;
+            </a>
+            {generatePageNumbers()}
+            <a
+                href="#"
+                className="arrow"
+                onClick={() => handleClick(currentPage + 1)}
+                disabled={currentPage === totalPages}
+            >
+                &#8594;
+            </a>
         </div>
-    )
-}
+    );
+};
 
-export default Pagination
+export default Pagination;
