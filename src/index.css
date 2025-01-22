@@ -15,6 +15,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn:focus {
+  outline: none;
+}
+
+.btn{
+  color: #FFFFFF;
+  background-color: #121825;
+  font-family: IBM Plex Sans;
+  font-weight: 400;
+}
+
 .containerElements {
   background-color: #121825;
   border-radius: 18px;
@@ -26,7 +37,7 @@
 }
 
 .inputDiv {
-  margin: 0px 34px;
+  margin: 0px 34px 24px;
   height: 46px
 }
 

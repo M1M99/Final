@@ -13,7 +13,7 @@ function Header() {
     align-items: center; 
     justify-content: space-between;
   `
-  
+
   const Span = styled.span`
     color: #FFFFFF;
     font-size: 22px;
@@ -30,16 +30,24 @@ function Header() {
 
  `
 
+  const Span2 = styled.span`
+    color: #FFFF; 
+    font-weight: 500;
+    font-size: 14px; 
+    line-height: 18px
+  `
+
   const IMG = styled.img`
     width: 32px; 
     height: 32px;
   `
+  
   return (
     <Container1>
       <Span>Crypto Currency</Span>
       <UserContainer>
         <IMG src={photoProfil} alt="Profil" />
-        <span style={{ color: '#FFFF', fontWeight: '500', fontSize: '14px', lineHeight: '18px' }}>Administrator</span>
+        <Span2>Administrator</Span2>
       </UserContainer>
     </Container1>
   )
